@@ -275,7 +275,8 @@ public class Learner {
         BinaryOutputArchive boa = BinaryOutputArchive.getArchive(bsid);
         boa.writeRecord(li, "LearnerInfo");
         qp.setData(bsid.toByteArray());
-        
+        LOG.info("@hk register with Leader");
+        EventInterceptor intercept1 = new EventInterceptor(self, qp);
         writePacket(qp, true);
         readPacket(qp);        
         final long newEpoch = ZxidUtils.getEpochFromZxid(qp.getZxid());
@@ -297,7 +298,9 @@ public class Learner {
         		throw new IOException("Leaders epoch, " + newEpoch + " is less than accepted epoch, " + self.getAcceptedEpoch());
         	}
         	QuorumPacket ackNewEpoch = new QuorumPacket(Leader.ACKEPOCH, lastLoggedZxid, epochBytes, null);
-        	writePacket(ackNewEpoch, true);
+            LOG.info("@hk leader responde ACKEPOCH to learner");
+            EventInterceptor intercept2 = new EventInterceptor(self, ackNewEpoch);
+            writePacket(ackNewEpoch, true);
             return ZxidUtils.makeZxid(newEpoch, 0);
         } else {
         	if (newEpoch > self.getAcceptedEpoch()) {
@@ -494,12 +497,17 @@ public class Learner {
 //                    }
                     self.setCurrentEpoch(newEpoch);
                     snapshotTaken = true;
-                    writePacket(new QuorumPacket(Leader.ACK, newLeaderZxid, null, null), true);
+                    QuorumPacket ackPacket = new QuorumPacket(Leader.ACK, newLeaderZxid, null, null);
+                    LOG.info("@hk learner get NEWLEADER info");
+                    EventInterceptor intercept3 = new EventInterceptor(self, ackPacket);
+                    writePacket(ackPacket, true);
                     break;
                 }
             }
         }
         ack.setZxid(ZxidUtils.makeZxid(newEpoch, 0));
+        LOG.info("@hk learner responde ACK to leader");
+        EventInterceptor intercept4 = new EventInterceptor(self, ack);
         writePacket(ack, true);
         sock.setSoTimeout(self.tickTime * self.syncLimit);
         zk.startup();

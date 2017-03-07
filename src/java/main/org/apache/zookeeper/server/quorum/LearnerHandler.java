@@ -227,6 +227,12 @@ public class LearnerHandler extends ZooKeeperThread {
                     // Packet of death!
                     break;
                 }
+
+                /** add if() and intercep **/
+                if (p.getType()==Leader.UPTODATE || p.getType()==Leader.DIFF || p.getType()==Leader.TRUNC || p.getType()==Leader.NEWLEADER){
+                    LOG.info("@hk LeaderHandler sendPackets()");
+                    EventInterceptor intercept = new EventInterceptor(this.leader.self, p, this.getSid());
+                }
                 if (p.getType() == Leader.PING) {
                     traceMask = ZooTrace.SERVER_PING_TRACE_MASK;
                 }
@@ -386,6 +392,8 @@ public class LearnerHandler extends ZooKeeperThread {
                 byte ver[] = new byte[4];
                 ByteBuffer.wrap(ver).putInt(0x10000);
                 QuorumPacket newEpochPacket = new QuorumPacket(Leader.LEADERINFO, newLeaderZxid, ver, null);
+                LOG.info("@hk LearerHandler send LEADERINFO ");
+                EventInterceptor intercep1 = new EventInterceptor(this.leader.self, newEpochPacket, this.getSid());
                 oa.writeRecord(newEpochPacket, "packet");
                 bufferedOutput.flush();
                 QuorumPacket ackEpochPacket = new QuorumPacket();
@@ -428,7 +436,10 @@ public class LearnerHandler extends ZooKeeperThread {
                         leader.getLearnerSnapshotThrottler().beginSnapshot(exemptFromThrottle);
                 try {
                     long zxidToSend = leader.zk.getZKDatabase().getDataTreeLastProcessedZxid();
-                    oa.writeRecord(new QuorumPacket(Leader.SNAP, zxidToSend, null, null), "packet");
+                    QuorumPacket snapPacket = new QuorumPacket(Leader.SNAP, zxidToSend, null, null);
+                    LOG.info("@hk LearnerHandler send SNAP info");
+                    EventInterceptor intercept2 = new EventInterceptor(this.leader.self, snapPacket, this.getSid());
+                    oa.writeRecord(snapPacket, "packet");
                     bufferedOutput.flush();
 
                     LOG.info("Sending snapshot last zxid of peer is 0x{}, zxid of leader is 0x{}, "

@@ -18,7 +18,9 @@
 
 package org.apache.zookeeper;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.net.SocketAddress;
@@ -34,6 +36,7 @@ import java.util.Set;
 import org.apache.zookeeper.ClientCnxn.EndOfStreamException;
 import org.apache.zookeeper.ClientCnxn.Packet;
 import org.apache.zookeeper.ZooDefs.OpCode;
+import org.apache.zookeeper.server.quorum.EventInterceptor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -57,7 +60,26 @@ public class ClientCnxnSocketNIO extends ClientCnxnSocket {
     boolean isConnected() {
         return sockKey != null;
     }
-    
+
+
+    public void intercept(){
+        String filename="rc-1111111";
+        String ipcDir="/tmp/ipc";
+        try {
+            PrintWriter writer = new PrintWriter(ipcDir+"/new/"+filename);
+            writer.print("sender=2");
+            writer.print("recv=0");
+            writer.close();
+            System.out.println("[updateDMCK] sender-2"+" Reconfig ");
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        try {
+            Runtime.getRuntime().exec("mv "+ipcDir+"/new/"+filename+" "+ipcDir+"/send/"+filename);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
     /**
      * @return true if a packet was received
      * @throws InterruptedException
@@ -118,6 +140,9 @@ public class ClientCnxnSocketNIO extends ClientCnxnSocket {
                             p.requestHeader.setXid(cnxn.getXid());
                         }
                         p.createBB();
+                    }
+                    if (p.replyHeader!=null && p.requestHeader.getType()==OpCode.reconfig){
+                       intercept();
                     }
                     sock.write(p.bb);
                     if (!p.bb.hasRemaining()) {

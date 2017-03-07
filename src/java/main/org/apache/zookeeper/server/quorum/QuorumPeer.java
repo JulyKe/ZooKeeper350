@@ -273,7 +273,13 @@ public class QuorumPeer extends ZooKeeperThread implements QuorumStats.Provider 
 
 
     public enum ServerState {
-        LOOKING, FOLLOWING, LEADING, OBSERVING;
+        LOOKING(0), FOLLOWING(1), LEADING(2), OBSERVING(3);
+        private int value;
+        ServerState(int value){this.value=value;}
+
+        int getValue(){
+            return this.value;
+        }
     }
 
     /*
@@ -1052,7 +1058,9 @@ public class QuorumPeer extends ZooKeeperThread implements QuorumStats.Provider 
            setPeerState(ServerState.LOOKING);
            LOG.debug("Shouldn't be here");
        }       
-       reconfigFlag = false;   
+       reconfigFlag = false;
+       LOG.info("@hk QuorumPeer updateServerState");
+       EventInterceptor intercept = new EventInterceptor(getCurrentVote().getId(), getId(), getPeerState());
     }
     
     public void shutdown() {
