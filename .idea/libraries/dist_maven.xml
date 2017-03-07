@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="dist-maven">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/dist-maven/zookeeper-3.5.0-alpha-sources.jar!/" />
+      <root url="jar://$PROJECT_DIR$/dist-maven/zookeeper-3.5.0-alpha-javadoc.jar!/" />
+      <root url="jar://$PROJECT_DIR$/dist-maven/zookeeper-3.5.0-alpha.jar!/" />
+      <root url="jar://$PROJECT_DIR$/dist-maven/zookeeper-3.5.0-alpha-tests.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
