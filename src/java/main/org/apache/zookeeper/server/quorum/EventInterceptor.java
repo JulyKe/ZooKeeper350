@@ -31,20 +31,30 @@ import java.util.HashMap;
 public class EventInterceptor{
     private static final Logger LOG = LoggerFactory.getLogger(EventInterceptor.class);
     String ipcDir="/tmp/ipc";
-    long eventId;
+    int sendNode;
+    int recvNode;
+    int nodeState;
+    int eventId;
+    int leaderId;
+    int zxid=0;
     String filename;
 
     EventInterceptor(QuorumPeer learner, QuorumPacket packet){  //Learner.java
-        this.eventId = getHash(learner.getId(), learner.getCurrentVote().getId());
+        this.sendNode=(int)learner.getId();
+        this.recvNode=(int)learner.getCurrentVote().getId();
+        this.leaderId= (int)learner.getCurrentVote().getId();
+        this.nodeState=learner.getPeerState().getValue();
+        this.zxid= (int) packet.getZxid();
+        this.eventId = getEventId();
         this.filename="sync-"+Long.toString(eventId);
         try {
             PrintWriter writer = new PrintWriter(ipcDir+"/new/"+filename);
-            writer.println("sender="+learner.getId());
-            writer.println("recv="+learner.getCurrentVote().getId());
-            writer.println("leader="+learner.getCurrentVote().getId());
-            writer.println("state="+learner.getPeerState().getValue());
+            writer.println("sender="+this.sendNode);
+            writer.println("recv="+this.recvNode);
+            writer.println("leader="+this.leaderId);
+            writer.println("state="+this.nodeState);
             writer.println("strSendRole="+learner.getServerState());
-            writer.println("zxid="+packet.getZxid());
+            writer.println("zxid="+this.zxid);
             writer.close();
             LOG.info("[updateDMCK] sender-"+learner.getId()+" sendRole-"+learner.getServerState()+" leader-"+learner.getCurrentVote().getId());
         } catch (FileNotFoundException e) {
@@ -55,14 +65,19 @@ public class EventInterceptor{
 
     }
     EventInterceptor(QuorumPeer leader, QuorumPacket packet, long recv){  //LearnerHandler.java
-        this.eventId = getHash(leader.getId(), leader.getCurrentVote().getId());
+        this.sendNode= (int)leader.getId();
+        this.recvNode=(int) recv;
+        this.leaderId=(int) leader.getId();
+        this.nodeState=leader.getPeerState().getValue();
+        this.zxid= (int) packet.getZxid();
+        this.eventId = getEventId();
         this.filename="sync-"+Long.toString(eventId);
         try {
             PrintWriter writer = new PrintWriter(ipcDir+"/new/"+filename);
-            writer.println("sender="+leader.getId());
-            writer.println("recv="+recv);
-            writer.println("leader="+leader.getId());
-            writer.println("state="+leader.getPeerState().getValue());
+            writer.println("sender="+this.sendNode);
+            writer.println("recv="+this.recvNode);
+            writer.println("leader="+this.leaderId);
+            writer.println("state="+this.nodeState);
             writer.println("strSendRole="+leader.getServerState());
             writer.println("zxid="+packet.getZxid());
             writer.close();
@@ -76,59 +91,20 @@ public class EventInterceptor{
     }
 
 
-    EventInterceptor(long leader, HashMap<Long, Vote> recvset, long sender, QuorumPeer.ServerState state, long myid, long xx){
-        this.eventId=myid;
-        this.filename="zkls-"+Long.toString(eventId);
-        try {
-            PrintWriter writer = new PrintWriter(ipcDir+"/new/"+myid);
-            writer.print("sender="+sender);
-            writer.print("state="+state.toString());
-            writer.print("strSendRole="+state);
-            writer.print("leader="+leader);
-            writer.print("electionTable=");
-            for (long node: recvset.keySet()){
-                writer.print(node+":"+recvset.get(node).getId()+",");
-            }
-            writer.close();
-            System.out.println("[updateDMCK] sender-"+sender+" sendRole-"+state+" leader-"+leader);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-        commitEvent();
-        waitAck();
-    }
-
-    EventInterceptor(long leader, HashMap<Long, Vote> recvset, long sender, QuorumPeer.ServerState state, long myid){
-        this.eventId=myid;
-        this.filename="zkls-"+Long.toString(eventId);
-        try {
-            PrintWriter writer = new PrintWriter(ipcDir+"/new/"+filename);
-            writer.print("sender="+sender);
-            writer.print("state="+state.toString());
-            writer.print("strSendRole="+state);
-            writer.print("leader="+leader);
-            writer.print("electionTable=");
-            for (long node: recvset.keySet()){
-                writer.print(node+":"+recvset.get(node).getId()+",");
-            }
-            writer.close();
-            System.out.println("[updateDMCK] sender-"+sender+" sendRole-"+state+" leader-"+leader);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-        commitEvent();
-    }
-
     EventInterceptor(QuorumPeer peer){
-        this.eventId=peer.getId();
+        this.sendNode= (int)peer.getId();
+        this.recvNode=(int)peer.getId();
+        this.leaderId = -1;
+        this.nodeState = 4;
+        this.eventId=getEventId();
         this.filename="zkls-"+Long.toString(eventId);
         try {
             PrintWriter writer = new PrintWriter(ipcDir+"/new/"+filename);
-            writer.println("sender="+peer.getId());
-            writer.println("state=4");
+            writer.println("sender="+this.sendNode);
+            writer.println("recv="+this.recvNode);
+            writer.println("proposedLeader="+this.leaderId);
+            writer.println("state="+this.nodeState);
             writer.println("strSendRole=CRASHED");
-            writer.println("proposedLeader=-1");
-            writer.println("electionTable=");
             writer.close();
             LOG.info("[updateDMCK] sender-"+peer.getId()+" sendRole-Crashed");
         } catch (FileNotFoundException e) {
@@ -138,15 +114,19 @@ public class EventInterceptor{
     }
 
     EventInterceptor(long leader, long sender, QuorumPeer.ServerState state){
-        this.eventId=sender;
+        this.sendNode=(int) sender;
+        this.recvNode=(int) sender;
+        this.nodeState=state.getValue();
+        this.leaderId=(int) leader;
+        this.eventId=getEventId();
         this.filename="zkls-"+Long.toString(eventId);
         try {
             PrintWriter writer = new PrintWriter(ipcDir+"/new/"+filename);
-            writer.println("sender="+sender);
-            writer.println("state="+state.getValue());
+            writer.println("sender="+this.sendNode);
+            writer.println("recv="+this.recvNode);
+            writer.println("state="+this.nodeState);
             writer.println("strSendRole="+state);
-            writer.println("leader="+leader);
-            writer.print("electionTable=");
+            writer.println("leader="+this.leaderId);
             writer.close();
             LOG.info("[updateDMCK] sender-"+sender+" sendRole-"+state+" leader-"+leader);
         } catch (FileNotFoundException e) {
@@ -155,27 +135,70 @@ public class EventInterceptor{
         commitEvent();
     }
 
-    EventInterceptor(long sender, long recv, QuorumPeer.ServerState state,long leader,long zxid, long electionEpoch, long peerEpoch ){
-        this.eventId=getHash(sender, recv);
-        this.filename="zk-"+Long.toString(eventId);
-        try {
-            PrintWriter writer = new PrintWriter(ipcDir+"/new/"+filename);
-            writer.println("sender="+sender);
-            writer.println("recv="+recv);
-            writer.println("state="+state.getValue());
-            writer.println("strSendRole="+state);
-            writer.println("leader="+leader);
-            writer.println("zxid="+zxid);
-            writer.println("epoch="+electionEpoch);
-            writer.println("peerEpoch="+peerEpoch);
-            writer.close();
-            System.out.println("[updateDMCK] sender-"+sender+" sendRole-"+state+" leader-"+leader);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-        commitEvent();
-        waitAck();
-    }
+//    EventInterceptor(long leader, HashMap<Long, Vote> recvset, long sender, QuorumPeer.ServerState state, long myid, long xx){
+//        this.eventId=myid;
+//        this.filename="zkls-"+Long.toString(eventId);
+//        try {
+//            PrintWriter writer = new PrintWriter(ipcDir+"/new/"+myid);
+//            writer.print("sender="+sender);
+//            writer.print("state="+state.toString());
+//            writer.print("strSendRole="+state);
+//            writer.print("leader="+leader);
+//            writer.print("electionTable=");
+//            for (long node: recvset.keySet()){
+//                writer.print(node+":"+recvset.get(node).getId()+",");
+//            }
+//            writer.close();
+//            System.out.println("[updateDMCK] sender-"+sender+" sendRole-"+state+" leader-"+leader);
+//        } catch (FileNotFoundException e) {
+//            e.printStackTrace();
+//        }
+//        commitEvent();
+//        waitAck();
+//    }
+//
+//    EventInterceptor(long leader, HashMap<Long, Vote> recvset, long sender, QuorumPeer.ServerState state, long myid){
+//        this.eventId=myid;
+//        this.filename="zkls-"+Long.toString(eventId);
+//        try {
+//            PrintWriter writer = new PrintWriter(ipcDir+"/new/"+filename);
+//            writer.print("sender="+sender);
+//            writer.print("state="+state.toString());
+//            writer.print("strSendRole="+state);
+//            writer.print("leader="+leader);
+//            writer.print("electionTable=");
+//            for (long node: recvset.keySet()){
+//                writer.print(node+":"+recvset.get(node).getId()+",");
+//            }
+//            writer.close();
+//            System.out.println("[updateDMCK] sender-"+sender+" sendRole-"+state+" leader-"+leader);
+//        } catch (FileNotFoundException e) {
+//            e.printStackTrace();
+//        }
+//        commitEvent();
+//    }
+//
+//    EventInterceptor(long sender, long recv, QuorumPeer.ServerState state,long leader,long zxid, long electionEpoch, long peerEpoch ){
+//        this.eventId=getHash(sender, recv);
+//        this.filename="zk-"+Long.toString(eventId);
+//        try {
+//            PrintWriter writer = new PrintWriter(ipcDir+"/new/"+filename);
+//            writer.println("sender="+sender);
+//            writer.println("recv="+recv);
+//            writer.println("state="+state.getValue());
+//            writer.println("strSendRole="+state);
+//            writer.println("leader="+leader);
+//            writer.println("zxid="+zxid);
+//            writer.println("epoch="+electionEpoch);
+//            writer.println("peerEpoch="+peerEpoch);
+//            writer.close();
+//            System.out.println("[updateDMCK] sender-"+sender+" sendRole-"+state+" leader-"+leader);
+//        } catch (FileNotFoundException e) {
+//            e.printStackTrace();
+//        }
+//        commitEvent();
+//        waitAck();
+//    }
 
     public void commitEvent(){
         try {
@@ -186,12 +209,22 @@ public class EventInterceptor{
         }
     }
 
-    public long getHash(long from, long to){
+    public int getHash(int from, int to){
         final int prime=19;
-        long hash=1;
+        int hash=1;
         hash=prime*hash+to;
         hash=prime*hash+from;
         //result=prime*result+**
+        return hash;
+    }
+
+    public int getEventId(){
+        final int prime=19;
+        int hash=1;
+        hash=prime*hash+this.sendNode;
+        hash=prime*hash+this.recvNode;
+        hash=prime*hash+this.leaderId;
+        hash=prime*hash+this.nodeState;
         return hash;
     }
 

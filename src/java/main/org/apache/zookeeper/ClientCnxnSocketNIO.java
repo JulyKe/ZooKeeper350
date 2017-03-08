@@ -67,8 +67,8 @@ public class ClientCnxnSocketNIO extends ClientCnxnSocket {
         String ipcDir="/tmp/ipc";
         try {
             PrintWriter writer = new PrintWriter(ipcDir+"/new/"+filename);
-            writer.print("sender=2");
-            writer.print("recv=0");
+            writer.println("sender=2");
+            writer.println("recv=0");
             writer.close();
             System.out.println("[updateDMCK] sender-2"+" Reconfig ");
         } catch (FileNotFoundException e) {

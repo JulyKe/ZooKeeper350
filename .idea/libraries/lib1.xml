@@ -1,18 +1,18 @@
 <component name="libraryTable">
   <library name="lib1">
     <CLASSES>
-      <root url="jar://$PROJECT_DIR$/build/lib/log4j-1.2.16.jar!/" />
-      <root url="jar://$PROJECT_DIR$/build/lib/jetty-6.1.26.jar!/" />
-      <root url="jar://$PROJECT_DIR$/build/lib/netty-3.7.0.Final.jar!/" />
-      <root url="jar://$PROJECT_DIR$/build/lib/slf4j-api-1.7.5.jar!/" />
-      <root url="jar://$PROJECT_DIR$/build/lib/commons-cli-1.2.jar!/" />
-      <root url="jar://$PROJECT_DIR$/build/lib/servlet-api-2.5-20081211.jar!/" />
-      <root url="jar://$PROJECT_DIR$/build/lib/jline-2.11.jar!/" />
-      <root url="jar://$PROJECT_DIR$/build/lib/slf4j-log4j12-1.7.5.jar!/" />
-      <root url="jar://$PROJECT_DIR$/build/lib/jetty-util-6.1.26.jar!/" />
-      <root url="jar://$PROJECT_DIR$/build/lib/jackson-core-asl-1.9.11.jar!/" />
-      <root url="jar://$PROJECT_DIR$/build/lib/javacc.jar!/" />
-      <root url="jar://$PROJECT_DIR$/build/lib/jackson-mapper-asl-1.9.11.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/jetty-6.1.26.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/jackson-core-asl-1.9.11.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/log4j-1.2.16.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/jackson-mapper-asl-1.9.11.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/servlet-api-2.5-20081211.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/slf4j-log4j12-1.7.5.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/netty-3.7.0.Final.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/jline-2.11.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/commons-cli-1.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/javacc.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/jetty-util-6.1.26.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/slf4j-api-1.7.5.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />
