@@ -1060,7 +1060,7 @@ public class QuorumPeer extends ZooKeeperThread implements QuorumStats.Provider 
        }       
        reconfigFlag = false;
        LOG.info("@hk QuorumPeer updateServerState");
-       EventInterceptor intercept = new EventInterceptor(getCurrentVote().getId(), getId(), getPeerState());
+//       EventInterceptor intercept = new EventInterceptor(getCurrentVote().getId(), getId(), getPeerState());
     }
     
     public void shutdown() {

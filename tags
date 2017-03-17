@@ -247,7 +247,7 @@ BASEURI	src/contrib/rest/src/test/org/apache/zookeeper/server/jersey/Base.java	/
 BASE_URI	src/contrib/rest/src/python/test.py	/^    BASE_URI = 'http:\/\/localhost:9998'$/;"	v	class:ZooKeeperREST_TestCase
 BOOLEAN_TKN	build/jute_compiler/org/apache/jute/compiler/generated/RccConstants.java	/^  int BOOLEAN_TKN = 15;$/;"	f	interface:RccConstants
 BUFFER_TKN	build/jute_compiler/org/apache/jute/compiler/generated/RccConstants.java	/^  int BUFFER_TKN = 21;$/;"	f	interface:RccConstants
-BUILD_DATE	src/java/generated/org/apache/zookeeper/version/Info.java	/^    public static final String BUILD_DATE="03\/07\/2017 04:52 GMT";$/;"	f	interface:Info
+BUILD_DATE	src/java/generated/org/apache/zookeeper/version/Info.java	/^    public static final String BUILD_DATE="03\/17\/2017 02:40 GMT";$/;"	f	interface:Info
 BYTE_TKN	build/jute_compiler/org/apache/jute/compiler/generated/RccConstants.java	/^  int BYTE_TKN = 14;$/;"	f	interface:RccConstants
 BadArguments	docs/api/org/apache/zookeeper/KeeperException.CodeDeprecated.html	/^<a name="BadArguments">$/;"	a
 BadArguments	src/java/main/org/apache/zookeeper/KeeperException.java	/^        public static final int BadArguments = -8;$/;"	f	interface:KeeperException.CodeDeprecated
@@ -991,6 +991,11 @@ ErrorTxn	src/java/generated/org/apache/zookeeper/txn/ErrorTxn.java	/^  public Er
 ErrorTxn	src/java/generated/org/apache/zookeeper/txn/ErrorTxn.java	/^  public ErrorTxn() {$/;"	m	class:ErrorTxn
 ErrorTxn	src/java/generated/org/apache/zookeeper/txn/ErrorTxn.java	/^public class ErrorTxn implements Record {$/;"	c
 Event	src/java/main/org/apache/zookeeper/Watcher.java	/^    public interface Event {$/;"	i	interface:Watcher
+EventInterceptor	src/java/main/org/apache/zookeeper/server/quorum/EventInterceptor.java	/^    EventInterceptor(QuorumPeer leader, QuorumPacket packet, long recv){  \/\/LearnerHandler.java$/;"	m	class:EventInterceptor
+EventInterceptor	src/java/main/org/apache/zookeeper/server/quorum/EventInterceptor.java	/^    EventInterceptor(QuorumPeer learner, QuorumPacket packet){  \/\/Learner.java$/;"	m	class:EventInterceptor
+EventInterceptor	src/java/main/org/apache/zookeeper/server/quorum/EventInterceptor.java	/^    EventInterceptor(QuorumPeer peer){$/;"	m	class:EventInterceptor
+EventInterceptor	src/java/main/org/apache/zookeeper/server/quorum/EventInterceptor.java	/^    EventInterceptor(long leader, long sender, QuorumPeer.ServerState state){$/;"	m	class:EventInterceptor
+EventInterceptor	src/java/main/org/apache/zookeeper/server/quorum/EventInterceptor.java	/^public class EventInterceptor{$/;"	c
 EventListener	contrib/zkfuse/src/event.h	/^class EventListener {$/;"	c	namespace:zkfuse
 EventListener	src/contrib/zkfuse/src/event.h	/^class EventListener {$/;"	c	namespace:zkfuse
 EventListenerAdapter	contrib/zkfuse/src/event.h	/^        EventListenerAdapter(EventSource<E> &eventSource) {$/;"	f	class:zkfuse::EventListenerAdapter
@@ -1057,7 +1062,7 @@ FLETestUtils	src/java/test/org/apache/zookeeper/server/quorum/FLETestUtils.java	
 FLEZeroWeightTest	src/java/test/org/apache/zookeeper/test/FLEZeroWeightTest.java	/^public class FLEZeroWeightTest extends ZKTestCase {$/;"	c
 FLOAT_TKN	build/jute_compiler/org/apache/jute/compiler/generated/RccConstants.java	/^  int FLOAT_TKN = 18;$/;"	f	interface:RccConstants
 FOLLOWERINFO	src/java/main/org/apache/zookeeper/server/quorum/Leader.java	/^    final static int FOLLOWERINFO = 11;$/;"	f	class:Leader
-FOLLOWING	src/java/main/org/apache/zookeeper/server/quorum/QuorumPeer.java	/^        LOOKING, FOLLOWING, LEADING, OBSERVING;$/;"	e	enum:QuorumPeer.ServerState	file:
+FOLLOWING	src/java/main/org/apache/zookeeper/server/quorum/QuorumPeer.java	/^        LOOKING(0), FOLLOWING(1), LEADING(2), OBSERVING(3);$/;"	e	enum:QuorumPeer.ServerState	file:
 FOLLOWING_STATE	src/java/main/org/apache/zookeeper/server/quorum/QuorumStats.java	/^        static public final String FOLLOWING_STATE = "following";$/;"	f	interface:QuorumStats.Provider
 FORCE_SNAP_SYNC	src/java/main/org/apache/zookeeper/server/quorum/LearnerHandler.java	/^    public static final String FORCE_SNAP_SYNC = "zookeeper.forceSnapshotSync";$/;"	f	class:LearnerHandler
 FORMAT_LOG_BUF_SIZE	src/c/src/zk_log.c	32;"	d	file:
@@ -1636,7 +1641,7 @@ L	docs/jdiff/changes/methods_index_all.html	/^<A NAME="L"><\/A>$/;"	a
 L	docs/jdiff/changes/methods_index_changes.html	/^<A NAME="L"><\/A>$/;"	a
 LBRACE_TKN	build/jute_compiler/org/apache/jute/compiler/generated/RccConstants.java	/^  int LBRACE_TKN = 24;$/;"	f	interface:RccConstants
 LEADERINFO	src/java/main/org/apache/zookeeper/server/quorum/Leader.java	/^    public static final int LEADERINFO = 17;$/;"	f	class:Leader
-LEADING	src/java/main/org/apache/zookeeper/server/quorum/QuorumPeer.java	/^        LOOKING, FOLLOWING, LEADING, OBSERVING;$/;"	e	enum:QuorumPeer.ServerState	file:
+LEADING	src/java/main/org/apache/zookeeper/server/quorum/QuorumPeer.java	/^        LOOKING(0), FOLLOWING(1), LEADING(2), OBSERVING(3);$/;"	e	enum:QuorumPeer.ServerState	file:
 LEADING_STATE	src/java/main/org/apache/zookeeper/server/quorum/QuorumStats.java	/^        static public final String LEADING_STATE = "leading";$/;"	f	interface:QuorumStats.Provider
 LENonTerminateTest	src/java/test/org/apache/zookeeper/test/LENonTerminateTest.java	/^public class LENonTerminateTest extends ZKTestCase {$/;"	c
 LETest	src/java/test/org/apache/zookeeper/test/LETest.java	/^public class LETest extends ZKTestCase {$/;"	c
@@ -1745,6 +1750,7 @@ LOG	src/java/main/org/apache/zookeeper/server/persistence/Util.java	/^    privat
 LOG	src/java/main/org/apache/zookeeper/server/quorum/AckRequestProcessor.java	/^    private static final Logger LOG = LoggerFactory.getLogger(AckRequestProcessor.class);$/;"	f	class:AckRequestProcessor	file:
 LOG	src/java/main/org/apache/zookeeper/server/quorum/AuthFastLeaderElection.java	/^    private static final Logger LOG = LoggerFactory.getLogger(AuthFastLeaderElection.class);$/;"	f	class:AuthFastLeaderElection	file:
 LOG	src/java/main/org/apache/zookeeper/server/quorum/CommitProcessor.java	/^    private static final Logger LOG = LoggerFactory.getLogger(CommitProcessor.class);$/;"	f	class:CommitProcessor	file:
+LOG	src/java/main/org/apache/zookeeper/server/quorum/EventInterceptor.java	/^    private static final Logger LOG = LoggerFactory.getLogger(EventInterceptor.class);$/;"	f	class:EventInterceptor	file:
 LOG	src/java/main/org/apache/zookeeper/server/quorum/FastLeaderElection.java	/^    private static final Logger LOG = LoggerFactory.getLogger(FastLeaderElection.class);$/;"	f	class:FastLeaderElection	file:
 LOG	src/java/main/org/apache/zookeeper/server/quorum/FollowerRequestProcessor.java	/^    private static final Logger LOG = LoggerFactory.getLogger(FollowerRequestProcessor.class);$/;"	f	class:FollowerRequestProcessor	file:
 LOG	src/java/main/org/apache/zookeeper/server/quorum/FollowerZooKeeperServer.java	/^    private static final Logger LOG =$/;"	f	class:FollowerZooKeeperServer	file:
@@ -1886,7 +1892,7 @@ LOG_WARN	contrib/zkfuse/src/log.h	81;"	d
 LOG_WARN	src/c/include/zookeeper_log.h	34;"	d
 LOG_WARN	src/contrib/zkfuse/src/log.h	81;"	d
 LONG_TKN	build/jute_compiler/org/apache/jute/compiler/generated/RccConstants.java	/^  int LONG_TKN = 17;$/;"	f	interface:RccConstants
-LOOKING	src/java/main/org/apache/zookeeper/server/quorum/QuorumPeer.java	/^        LOOKING, FOLLOWING, LEADING, OBSERVING;$/;"	e	enum:QuorumPeer.ServerState	file:
+LOOKING	src/java/main/org/apache/zookeeper/server/quorum/QuorumPeer.java	/^        LOOKING(0), FOLLOWING(1), LEADING(2), OBSERVING(3);$/;"	e	enum:QuorumPeer.ServerState	file:
 LOOKING_STATE	src/java/main/org/apache/zookeeper/server/quorum/QuorumStats.java	/^        static public final String LOOKING_STATE = "leaderelection";$/;"	f	interface:QuorumStats.Provider
 LOOP_DETECTED	build/jute_compiler/org/apache/jute/compiler/generated/TokenMgrError.java	/^  static final int LOOP_DETECTED = 3;$/;"	f	class:TokenMgrError
 LT_OBJDIR	src/c/include/winconfig.h	105;"	d
@@ -2489,7 +2495,7 @@ O	docs/jdiff/changes/packages_index_changes.html	/^<A NAME="O"><\/A>$/;"	a
 OBSERVER	src/java/main/org/apache/zookeeper/server/quorum/QuorumPeer.java	/^        PARTICIPANT, OBSERVER;$/;"	e	enum:QuorumPeer.LearnerType	file:
 OBSERVERINFO	src/java/main/org/apache/zookeeper/server/quorum/Leader.java	/^    final static int OBSERVERINFO = 16;$/;"	f	class:Leader
 OBSERVER_ID	src/java/main/org/apache/zookeeper/server/quorum/QuorumPeer.java	/^    static final long OBSERVER_ID = Long.MAX_VALUE;$/;"	f	class:QuorumPeer
-OBSERVING	src/java/main/org/apache/zookeeper/server/quorum/QuorumPeer.java	/^        LOOKING, FOLLOWING, LEADING, OBSERVING;$/;"	e	enum:QuorumPeer.ServerState	file:
+OBSERVING	src/java/main/org/apache/zookeeper/server/quorum/QuorumPeer.java	/^        LOOKING(0), FOLLOWING(1), LEADING(2), OBSERVING(3);$/;"	e	enum:QuorumPeer.ServerState	file:
 OBSERVING_STATE	src/java/main/org/apache/zookeeper/server/quorum/QuorumStats.java	/^        static public final String OBSERVING_STATE = "observing";$/;"	f	interface:QuorumStats.Provider
 OFFER	recipes/election/src/java/org/apache/zookeeper/recipes/leader/LeaderElectionSupport.java	/^    START, OFFER, DETERMINE, ELECTED, READY, FAILED, STOP$/;"	e	enum:LeaderElectionSupport.State	file:
 OFFER	src/recipes/election/src/java/org/apache/zookeeper/recipes/leader/LeaderElectionSupport.java	/^    START, OFFER, DETERMINE, ELECTED, READY, FAILED, STOP$/;"	e	enum:LeaderElectionSupport.State	file:
@@ -2838,12 +2844,14 @@ ReconfigInProgress	src/java/main/org/apache/zookeeper/KeeperException.java	/^   
 ReconfigInProgress	src/java/main/org/apache/zookeeper/KeeperException.java	/^        public static final int ReconfigInProgress= -14;$/;"	f	interface:KeeperException.CodeDeprecated
 ReconfigInProgress	src/java/main/org/apache/zookeeper/KeeperException.java	/^    public static class ReconfigInProgress extends KeeperException {$/;"	c	class:KeeperException
 ReconfigLegacyTest	src/java/test/org/apache/zookeeper/server/quorum/ReconfigLegacyTest.java	/^public class ReconfigLegacyTest extends QuorumPeerTestBase {$/;"	c
+ReconfigOne	src/java/main/reconfigAdd/ReconfigOne.java	/^public class ReconfigOne {$/;"	c
 ReconfigRecoveryTest	src/java/test/org/apache/zookeeper/server/quorum/ReconfigRecoveryTest.java	/^public class ReconfigRecoveryTest extends QuorumPeerTestBase {$/;"	c
 ReconfigRequest	src/c/generated/zookeeper.jute.h	/^struct ReconfigRequest {$/;"	s
 ReconfigRequest	src/java/generated/org/apache/zookeeper/proto/ReconfigRequest.java	/^  public ReconfigRequest($/;"	m	class:ReconfigRequest
 ReconfigRequest	src/java/generated/org/apache/zookeeper/proto/ReconfigRequest.java	/^  public ReconfigRequest() {$/;"	m	class:ReconfigRequest
 ReconfigRequest	src/java/generated/org/apache/zookeeper/proto/ReconfigRequest.java	/^public class ReconfigRequest implements Record {$/;"	c
 ReconfigTest	src/java/test/org/apache/zookeeper/test/ReconfigTest.java	/^public class ReconfigTest extends ZKTestCase implements DataCallback{$/;"	c
+ReconfigTwo	src/java/main/reconfigAdd/ReconfigTwo.java	/^public class ReconfigTwo {$/;"	c
 Record	build/jute_compiler/org/apache/jute/compiler/generated/Rcc.java	/^  final public JRecord Record() throws ParseException {$/;"	m	class:Rcc
 Record	src/java/main/org/apache/jute/Record.java	/^public interface Record {$/;"	i
 RecordList	build/jute_compiler/org/apache/jute/compiler/generated/Rcc.java	/^  final public ArrayList<JRecord> RecordList() throws ParseException {$/;"	m	class:Rcc
@@ -3051,6 +3059,7 @@ ServerCnxnTest	src/java/test/org/apache/zookeeper/test/ServerCnxnTest.java	/^pub
 ServerConfig	src/java/main/org/apache/zookeeper/server/ServerConfig.java	/^public class ServerConfig {$/;"	c
 ServerMXBean	src/java/main/org/apache/zookeeper/server/quorum/ServerMXBean.java	/^public interface ServerMXBean {$/;"	i
 ServerSaslResponseCallback	src/java/main/org/apache/zookeeper/client/ZooKeeperSaslClient.java	/^    public static class ServerSaslResponseCallback implements AsyncCallback.DataCallback {$/;"	c	class:ZooKeeperSaslClient
+ServerState	src/java/main/org/apache/zookeeper/server/quorum/QuorumPeer.java	/^        ServerState(int value){this.value=value;}$/;"	m	class:QuorumPeer.ServerState
 ServerState	src/java/main/org/apache/zookeeper/server/quorum/QuorumPeer.java	/^    public enum ServerState {$/;"	g	class:QuorumPeer
 ServerStats	src/java/main/org/apache/zookeeper/server/ServerStats.java	/^    public ServerStats(Provider provider) {$/;"	m	class:ServerStats
 ServerStats	src/java/main/org/apache/zookeeper/server/ServerStats.java	/^public class ServerStats {$/;"	c
@@ -3820,6 +3829,7 @@ ZINVALIDACL	src/c/include/zookeeper.h	/^  ZINVALIDACL = -114, \/*!< Invalid ACL 
 ZINVALIDCALLBACK	src/c/include/zookeeper.h	/^  ZINVALIDCALLBACK = -113, \/*!< Invalid callback specified *\/$/;"	e	enum:ZOO_ERRORS
 ZINVALIDSTATE	src/c/include/zookeeper.h	/^  ZINVALIDSTATE = -9, \/*!< Invliad zhandle state *\/$/;"	e	enum:ZOO_ERRORS
 ZK33xSocketMock	src/contrib/monitoring/test.py	/^class ZK33xSocketMock(SocketMock):$/;"	c
+ZKConnection	src/java/main/reconfigAdd/ZKConnection.java	/^public class ZKConnection {$/;"	c
 ZKDatabase	src/java/main/org/apache/zookeeper/server/ZKDatabase.java	/^    public ZKDatabase(FileTxnSnapLog snapLog) {$/;"	m	class:ZKDatabase
 ZKDatabase	src/java/main/org/apache/zookeeper/server/ZKDatabase.java	/^public class ZKDatabase {$/;"	c
 ZKEventListener	contrib/zkfuse/src/zkadapter.h	/^typedef EventListener<ZKWatcherEvent> ZKEventListener;$/;"	t	namespace:zk
@@ -5450,6 +5460,7 @@ close	src/java/main/org/apache/zookeeper/server/persistence/SnapShot.java	/^    
 close	src/java/main/org/apache/zookeeper/server/persistence/TxnLog.java	/^        void close() throws IOException;$/;"	m	interface:TxnLog.TxnIterator
 close	src/java/main/org/apache/zookeeper/server/persistence/TxnLog.java	/^    void close() throws IOException;$/;"	m	interface:TxnLog
 close	src/java/main/org/apache/zookeeper/server/quorum/LearnerSnapshot.java	/^    public void close() {$/;"	m	class:LearnerSnapshot
+close	src/java/main/reconfigAdd/ZKConnection.java	/^   public void close() throws InterruptedException {$/;"	m	class:ZKConnection
 close	src/java/systest/org/apache/zookeeper/test/system/GenerateLoad.java	/^        void close() {$/;"	m	class:GenerateLoad.SlaveThread
 close	src/java/systest/org/apache/zookeeper/test/system/InstanceManager.java	/^    synchronized public void close() throws InterruptedException {$/;"	m	class:InstanceManager
 close	src/recipes/lock/src/java/org/apache/zookeeper/recipes/lock/ProtocolSupport.java	/^    public void close() {$/;"	m	class:ProtocolSupport
@@ -5577,6 +5588,7 @@ commit	src/java/main/org/apache/zookeeper/server/quorum/FollowerZooKeeperServer.
 commit	src/java/main/org/apache/zookeeper/server/quorum/Leader.java	/^    public void commit(long zxid) {$/;"	m	class:Leader
 commit	src/java/test/org/apache/zookeeper/test/MultiTransactionTest.java	/^    private List<OpResult> commit(Transaction txn)$/;"	m	class:MultiTransactionTest	file:
 commitAndActivate	src/java/main/org/apache/zookeeper/server/quorum/Leader.java	/^    public void commitAndActivate(long zxid, long designatedLeader) {$/;"	m	class:Leader
+commitEvent	src/java/main/org/apache/zookeeper/server/quorum/EventInterceptor.java	/^    public void commitEvent(){$/;"	m	class:EventInterceptor
 commitLogBuffer	src/java/main/org/apache/zookeeper/server/ZKDatabase.java	/^    protected static int commitLogBuffer = 700;$/;"	f	class:ZKDatabase
 commitLogCount	src/java/main/org/apache/zookeeper/server/ZKDatabase.java	/^    public static final int commitLogCount = 500;$/;"	f	class:ZKDatabase
 commitProcessor	src/java/main/org/apache/zookeeper/server/quorum/LeaderZooKeeperServer.java	/^    CommitProcessor commitProcessor;$/;"	f	class:LeaderZooKeeperServer
@@ -5723,6 +5735,7 @@ configure	src/java/test/org/apache/zookeeper/server/quorum/Zab1_0Test.java	/^   
 configureClients	src/java/systest/org/apache/zookeeper/test/system/BaseSysTest.java	/^    public void configureClients(int count, Class<? extends Instance> clazz, String params) throws Exception {$/;"	m	class:BaseSysTest
 configureSaslLogin	src/java/main/org/apache/zookeeper/server/ServerCnxnFactory.java	/^    protected void configureSaslLogin() throws IOException {$/;"	m	class:ServerCnxnFactory
 configureServers	src/java/systest/org/apache/zookeeper/test/system/BaseSysTest.java	/^    public void configureServers(int count) throws Exception {$/;"	m	class:BaseSysTest
+conn	src/java/main/reconfigAdd/ReconfigTwo.java	/^	private static ZKConnection conn;$/;"	f	class:ReconfigTwo	file:
 conn	src/java/test/org/apache/zookeeper/test/JMXEnv.java	/^    public static MBeanServerConnection conn() throws IOException {$/;"	m	class:JMXEnv
 conn_cv	contrib/zkpython/src/python/zk.py	/^conn_cv = threading.Condition( )$/;"	v
 conn_cv	src/contrib/zkpython/src/python/zk.py	/^conn_cv = threading.Condition( )$/;"	v
@@ -5739,6 +5752,7 @@ connect	src/contrib/zooinspector/src/java/org/apache/zookeeper/inspector/manager
 connect	src/contrib/zooinspector/src/java/org/apache/zookeeper/inspector/manager/ZooInspectorManagerImpl.java	/^    public boolean connect(Properties connectionProps) {$/;"	m	class:ZooInspectorManagerImpl
 connect	src/java/main/org/apache/zookeeper/ClientCnxnSocket.java	/^    abstract void connect(InetSocketAddress addr) throws IOException;$/;"	m	class:ClientCnxnSocket
 connect	src/java/main/org/apache/zookeeper/ClientCnxnSocketNIO.java	/^    void connect(InetSocketAddress addr) throws IOException {$/;"	m	class:ClientCnxnSocketNIO
+connect	src/java/main/reconfigAdd/ZKConnection.java	/^   public ZooKeeper connect(String host) throws IOException,InterruptedException {$/;"	m	class:ZKConnection
 connectAll	src/java/main/org/apache/zookeeper/server/quorum/QuorumCnxManager.java	/^    public void connectAll(){$/;"	m	class:QuorumCnxManager
 connectErrno	src/c/tests/LibCMocks.h	/^    int connectErrno;$/;"	m	class:Mock_socket
 connectNewPeers	src/java/main/org/apache/zookeeper/server/quorum/QuorumPeer.java	/^    public synchronized void connectNewPeers(){$/;"	m	class:QuorumPeer
@@ -5768,6 +5782,7 @@ connected	src/java/test/org/apache/zookeeper/test/LoadFromLogTest.java	/^    pri
 connected	src/java/test/org/apache/zookeeper/test/TruncateTest.java	/^    volatile boolean connected;$/;"	f	class:TruncateTest
 connected	src/recipes/lock/src/c/tests/TestClient.cc	/^    bool connected;$/;"	m	struct:watchCtx	file:
 connected	src/recipes/queue/src/c/tests/TestClient.cc	/^    bool connected;$/;"	m	struct:watchCtx	file:
+connectedSignal	src/java/main/reconfigAdd/ZKConnection.java	/^   final CountDownLatch connectedSignal = new CountDownLatch(1);$/;"	f	class:ZKConnection
 connected_	src/c/tests/TestWatchers.cc	/^        bool connected_;$/;"	m	class:Zookeeper_watchers::ConnectionWatcher	file:
 connectingFollowers	src/java/main/org/apache/zookeeper/server/quorum/Leader.java	/^    private final HashSet<Long> connectingFollowers = new HashSet<Long>();$/;"	f	class:Leader	file:
 connection	src/java/main/org/apache/zookeeper/server/ConnectionBean.java	/^    private final ServerCnxn connection;$/;"	f	class:ConnectionBean	file:
@@ -7174,6 +7189,7 @@ established	src/java/main/org/apache/zookeeper/server/ServerCnxn.java	/^    prot
 evaluate	src/java/test/org/apache/zookeeper/JUnit4ZKTestRunner.java	/^        public void evaluate() throws Throwable {$/;"	m	class:JUnit4ZKTestRunner.LoggedInvokeMethod
 evaluateResponse	src/java/main/org/apache/zookeeper/server/ZooKeeperSaslServer.java	/^    public byte[] evaluateResponse(byte[] response) throws SaslException {$/;"	m	class:ZooKeeperSaslServer
 event	src/java/main/org/apache/zookeeper/ClientCnxn.java	/^        private final WatchedEvent event;$/;"	f	class:ClientCnxn.WatcherSetEventPair	file:
+eventId	src/java/main/org/apache/zookeeper/server/quorum/EventInterceptor.java	/^    int eventId;$/;"	f	class:EventInterceptor
 eventOfDeath	src/java/main/org/apache/zookeeper/ClientCnxn.java	/^    private Object eventOfDeath = new Object();$/;"	f	class:ClientCnxn	file:
 eventPath	src/java/test/org/apache/zookeeper/RemoveWatchesCmdTest.java	/^        private String eventPath;$/;"	f	class:RemoveWatchesCmdTest.MyWatcher	file:
 eventPath	src/java/test/org/apache/zookeeper/RemoveWatchesTest.java	/^        private String eventPath;$/;"	f	class:RemoveWatchesTest.MyCallback	file:
@@ -7388,6 +7404,7 @@ file	src/contrib/loggraph/src/java/org/apache/zookeeper/graph/RandomAccessFileRe
 file	src/contrib/loggraph/src/java/org/apache/zookeeper/graph/TxnLogSource.java	/^    private String file = null;$/;"	f	class:TxnLogSource	file:
 fileChooser	contrib/ZooInspector/src/java/org/apache/zookeeper/inspector/gui/ZooInspectorNodeViewersDialog.java	/^    private final JFileChooser fileChooser = new JFileChooser(new File("."));$/;"	f	class:ZooInspectorNodeViewersDialog	file:
 fileChooser	src/contrib/zooinspector/src/java/org/apache/zookeeper/inspector/gui/ZooInspectorNodeViewersDialog.java	/^    private final JFileChooser fileChooser = new JFileChooser(new File("."));$/;"	f	class:ZooInspectorNodeViewersDialog	file:
+filename	src/java/main/org/apache/zookeeper/server/quorum/EventInterceptor.java	/^    String filename;$/;"	f	class:EventInterceptor
 fileoffset	contrib/loggraph/src/java/org/apache/zookeeper/graph/RandomAccessFileReader.java	/^    private long fileoffset;$/;"	f	class:RandomAccessFileReader	file:
 fileoffset	src/contrib/loggraph/src/java/org/apache/zookeeper/graph/RandomAccessFileReader.java	/^    private long fileoffset;$/;"	f	class:RandomAccessFileReader	file:
 fill	contrib/loggraph/src/java/org/apache/zookeeper/graph/RandomAccessFileReader.java	/^    private int fill() throws IOException {$/;"	m	class:RandomAccessFileReader	file:
@@ -8193,6 +8210,7 @@ getEvent	src/contrib/zkfuse/src/event.h	/^        void *getEvent() const { retur
 getEvent	src/java/test/org/apache/zookeeper/test/ZooKeeperTestClient.java	/^  private WatchedEvent getEvent(int numTries) throws InterruptedException {$/;"	m	class:ZooKeeperTestClient	file:
 getEvent	src/recipes/lock/src/c/tests/TestClient.cc	/^    evt_t getEvent() {$/;"	f	struct:watchCtx
 getEvent	src/recipes/queue/src/c/tests/TestClient.cc	/^    evt_t getEvent() {$/;"	f	struct:watchCtx
+getEventId	src/java/main/org/apache/zookeeper/server/quorum/EventInterceptor.java	/^    public int getEventId(){$/;"	m	class:EventInterceptor
 getEventsAfterWatchRemoval	src/java/test/org/apache/zookeeper/RemoveWatchesTest.java	/^        public List<EventType> getEventsAfterWatchRemoval() {$/;"	m	class:RemoveWatchesTest.MyWatcher
 getException	src/java/main/org/apache/zookeeper/server/Request.java	/^    public KeeperException getException() {$/;"	m	class:Request
 getExecString	src/java/main/org/apache/zookeeper/Shell.java	/^    protected String[] getExecString() {$/;"	m	class:Shell.ShellCommandExecutor
@@ -8247,6 +8265,7 @@ getGlobalOutstandingLimit	src/java/main/org/apache/zookeeper/server/quorum/Leade
 getGroupsCommand	src/java/main/org/apache/zookeeper/Shell.java	/^  public static String[] getGroupsCommand() {$/;"	m	class:Shell
 getGroupsForUserCommand	src/java/main/org/apache/zookeeper/Shell.java	/^  public static String[] getGroupsForUserCommand(final String user) {$/;"	m	class:Shell
 getHandle	src/c/tests/LibCSymTable.cc	/^void* LibCSymTable::getHandle(){$/;"	f	class:LibCSymTable
+getHash	src/java/main/org/apache/zookeeper/server/quorum/EventInterceptor.java	/^    public int getHash(int from, int to){$/;"	m	class:EventInterceptor
 getHdr	src/java/main/org/apache/zookeeper/server/Request.java	/^    public TxnHeader getHdr() {$/;"	m	class:Request
 getHeader	src/java/main/org/apache/zookeeper/server/persistence/FileTxnLog.java	/^        public TxnHeader getHeader() {$/;"	m	class:FileTxnLog.FileTxnIterator
 getHeader	src/java/main/org/apache/zookeeper/server/persistence/TxnLog.java	/^        TxnHeader getHeader();$/;"	m	interface:TxnLog.TxnIterator
@@ -9066,6 +9085,7 @@ getValue	src/contrib/loggraph/src/java/org/apache/zookeeper/graph/filterops/Arg.
 getValue	src/contrib/zooinspector/src/java/org/apache/zookeeper/inspector/manager/Pair.java	/^    public V getValue() {$/;"	m	class:Pair
 getValue	src/java/main/org/apache/jute/XmlInputArchive.java	/^        public String getValue() { return sb.toString(); }$/;"	m	class:XmlInputArchive.Value
 getValue	src/java/main/org/apache/zookeeper/Environment.java	/^        public String getValue() { return v; }$/;"	m	class:Environment.Entry
+getValue	src/java/main/org/apache/zookeeper/server/quorum/QuorumPeer.java	/^        int getValue(){$/;"	m	class:QuorumPeer.ServerState
 getValue	src/recipes/lock/src/c/tests/Util.h	/^bool getValue(const std::map<K,V>& map,const K& k,V& v){$/;"	f
 getValue	src/recipes/queue/src/c/tests/Util.h	/^bool getValue(const std::map<K,V>& map,const K& k,V& v){$/;"	f
 getVersion	src/java/generated/org/apache/zookeeper/data/Stat.java	/^  public int getVersion() {$/;"	m	class:Stat
@@ -9658,6 +9678,7 @@ int_least16_t	src/c/include/winstdint.h	/^typedef int16_t   int_least16_t;$/;"	t
 int_least32_t	src/c/include/winstdint.h	/^typedef int32_t   int_least32_t;$/;"	t
 int_least64_t	src/c/include/winstdint.h	/^typedef int64_t   int_least64_t;$/;"	t
 int_least8_t	src/c/include/winstdint.h	/^typedef int8_t    int_least8_t;$/;"	t
+intercept	src/java/main/org/apache/zookeeper/ClientCnxnSocketNIO.java	/^    public void intercept(){$/;"	m	class:ClientCnxnSocketNIO
 interestOps	src/java/test/org/apache/zookeeper/server/quorum/WatchLeakTest.java	/^        public SelectionKey interestOps(int ops) {$/;"	m	class:WatchLeakTest.FakeSK
 interestOps	src/java/test/org/apache/zookeeper/server/quorum/WatchLeakTest.java	/^        public int interestOps() {$/;"	m	class:WatchLeakTest.FakeSK
 interface	docs/api/deprecated-list.html	/^<div class="contentContainer"><a name="interface">$/;"	a
@@ -9673,6 +9694,7 @@ io	src/c/src/zk_adaptor.h	/^     pthread_t io;$/;"	m	struct:adaptor_threads
 io_count	src/c/src/zk_adaptor.h	/^    int io_count;			\/\/ counts the number of iterations of do_io$/;"	m	struct:_zhandle
 ipMap	src/java/main/org/apache/zookeeper/server/NIOServerCnxnFactory.java	/^    private final ConcurrentHashMap<InetAddress, Set<NIOServerCnxn>> ipMap =$/;"	f	class:NIOServerCnxnFactory	file:
 ipMap	src/java/main/org/apache/zookeeper/server/NettyServerCnxnFactory.java	/^    HashMap<InetAddress, Set<NettyServerCnxn>> ipMap =$/;"	f	class:NettyServerCnxnFactory
+ipcDir	src/java/main/org/apache/zookeeper/server/quorum/EventInterceptor.java	/^    String ipcDir="\/tmp\/ipc";$/;"	f	class:EventInterceptor
 isActivated	src/c/tests/ZKMocks.cc	/^    SyncedBoolCondition isActivated() const{$/;"	f	class:ActivateWatcherWrapper
 isAlive	src/java/main/org/apache/zookeeper/ZooKeeper.java	/^        public boolean isAlive() {$/;"	m	class:ZooKeeper.States
 isAlive	src/java/systest/org/apache/zookeeper/test/system/InstanceManager.java	/^    synchronized boolean isAlive(String name) {$/;"	m	class:InstanceManager
@@ -10036,6 +10058,7 @@ leader	src/java/test/org/apache/zookeeper/test/LETest.java	/^    volatile long l
 leaderAddr	src/java/test/org/apache/zookeeper/server/quorum/Zab1_0Test.java	/^        InetSocketAddress leaderAddr;$/;"	f	class:Zab1_0Test.ConversableFollower
 leaderAddr	src/java/test/org/apache/zookeeper/server/quorum/Zab1_0Test.java	/^        InetSocketAddress leaderAddr;$/;"	f	class:Zab1_0Test.ConversableObserver
 leaderDies	src/java/test/org/apache/zookeeper/test/LETest.java	/^    volatile boolean leaderDies;$/;"	f	class:LETest
+leaderId	src/java/main/org/apache/zookeeper/server/quorum/EventInterceptor.java	/^    int leaderId;$/;"	f	class:EventInterceptor
 leaderId	src/java/test/org/apache/zookeeper/server/quorum/StandaloneDisabledTest.java	/^    private final int leaderId = 0;$/;"	f	class:StandaloneDisabledTest	file:
 leaderIs	src/java/main/org/apache/zookeeper/server/quorum/Learner.java	/^    protected InputArchive leaderIs;$/;"	f	class:Learner
 leaderLastZxid	src/java/main/org/apache/zookeeper/server/quorum/LearnerHandler.java	/^    private long leaderLastZxid;$/;"	f	class:LearnerHandler	file:
@@ -10442,6 +10465,8 @@ main	src/java/main/org/apache/zookeeper/server/auth/DigestAuthenticationProvider
 main	src/java/main/org/apache/zookeeper/server/auth/KerberosName.java	/^  public static void main(String[] args) throws Exception {$/;"	m	class:KerberosName
 main	src/java/main/org/apache/zookeeper/server/quorum/QuorumPeerMain.java	/^    public static void main(String[] args) {$/;"	m	class:QuorumPeerMain
 main	src/java/main/org/apache/zookeeper/version/util/VerGen.java	/^    public static void main(String[] args) {$/;"	m	class:VerGen
+main	src/java/main/reconfigAdd/ReconfigOne.java	/^	public static void main(String[] args){$/;"	m	class:ReconfigOne
+main	src/java/main/reconfigAdd/ReconfigTwo.java	/^	public static void main(String[] args){$/;"	m	class:ReconfigTwo
 main	src/java/systest/org/apache/zookeeper/test/system/BaseSysTest.java	/^    static public void main(String args[]) {$/;"	m	class:BaseSysTest
 main	src/java/systest/org/apache/zookeeper/test/system/GenerateLoad.java	/^    public static void main(String[] args) throws InterruptedException,$/;"	m	class:GenerateLoad
 main	src/java/systest/org/apache/zookeeper/test/system/InstanceContainer.java	/^    public static void main(String[] args) throws UnknownHostException, IOException, InterruptedException, KeeperException {$/;"	m	class:InstanceContainer
@@ -11761,6 +11786,7 @@ nodeSelectionChanged	src/contrib/zooinspector/src/java/org/apache/zookeeper/insp
 nodeSelectionChanged	src/contrib/zooinspector/src/java/org/apache/zookeeper/inspector/gui/nodeviewer/NodeViewerData.java	/^    public void nodeSelectionChanged(List<String> selectedNodes) {$/;"	m	class:NodeViewerData
 nodeSelectionChanged	src/contrib/zooinspector/src/java/org/apache/zookeeper/inspector/gui/nodeviewer/NodeViewerMetaData.java	/^    public void nodeSelectionChanged(List<String> selectedNodes) {$/;"	m	class:NodeViewerMetaData
 nodeSelectionChanged	src/contrib/zooinspector/src/java/org/apache/zookeeper/inspector/gui/nodeviewer/ZooInspectorNodeViewer.java	/^    public abstract void nodeSelectionChanged(List<String> selectedNodes);$/;"	m	class:ZooInspectorNodeViewer
+nodeState	src/java/main/org/apache/zookeeper/server/quorum/EventInterceptor.java	/^    int nodeState;$/;"	f	class:EventInterceptor
 nodeVeiwers	contrib/ZooInspector/src/java/org/apache/zookeeper/inspector/gui/ZooInspectorNodeViewersPanel.java	/^    private final List<ZooInspectorNodeViewer> nodeVeiwers = new ArrayList<ZooInspectorNodeViewer>();$/;"	f	class:ZooInspectorNodeViewersPanel	file:
 nodeVeiwers	src/contrib/zooinspector/src/java/org/apache/zookeeper/inspector/gui/ZooInspectorNodeViewersPanel.java	/^    private final List<ZooInspectorNodeViewer> nodeVeiwers = new ArrayList<ZooInspectorNodeViewer>();$/;"	f	class:ZooInspectorNodeViewersPanel	file:
 nodeViewerDataFlavor	contrib/ZooInspector/src/java/org/apache/zookeeper/inspector/gui/nodeviewer/ZooInspectorNodeViewer.java	/^    public static final DataFlavor nodeViewerDataFlavor = new DataFlavor($/;"	f	class:ZooInspectorNodeViewer
@@ -12630,6 +12656,7 @@ org.apache.zookeeper.server.quorum	src/java/main/org/apache/zookeeper/server/quo
 org.apache.zookeeper.server.quorum	src/java/main/org/apache/zookeeper/server/quorum/AuthFastLeaderElection.java	/^package org.apache.zookeeper.server.quorum;$/;"	p
 org.apache.zookeeper.server.quorum	src/java/main/org/apache/zookeeper/server/quorum/CommitProcessor.java	/^package org.apache.zookeeper.server.quorum;$/;"	p
 org.apache.zookeeper.server.quorum	src/java/main/org/apache/zookeeper/server/quorum/Election.java	/^package org.apache.zookeeper.server.quorum;$/;"	p
+org.apache.zookeeper.server.quorum	src/java/main/org/apache/zookeeper/server/quorum/EventInterceptor.java	/^package org.apache.zookeeper.server.quorum;$/;"	p
 org.apache.zookeeper.server.quorum	src/java/main/org/apache/zookeeper/server/quorum/FastLeaderElection.java	/^package org.apache.zookeeper.server.quorum;$/;"	p
 org.apache.zookeeper.server.quorum	src/java/main/org/apache/zookeeper/server/quorum/Follower.java	/^package org.apache.zookeeper.server.quorum;$/;"	p
 org.apache.zookeeper.server.quorum	src/java/main/org/apache/zookeeper/server/quorum/FollowerBean.java	/^package org.apache.zookeeper.server.quorum;$/;"	p
@@ -14081,6 +14108,9 @@ reconfig(java.lang.String, java.lang.String, java.lang.String, long, org.apache.
 reconfig(java.lang.String, java.lang.String, java.lang.String, long, org.apache.zookeeper.data.Stat)	docs/api/org/apache/zookeeper/ZooKeeper.html	/^<a name="reconfig(java.lang.String, java.lang.String, java.lang.String, long, org.apache.zookeeper.data.Stat)">$/;"	a
 reconfig(java.util.List, java.util.List, java.util.List, long, org.apache.zookeeper.AsyncCallback.DataCallback, java.lang.Object)	docs/api/org/apache/zookeeper/ZooKeeper.html	/^<a name="reconfig(java.util.List, java.util.List, java.util.List, long, org.apache.zookeeper.AsyncCallback.DataCallback, java.lang.Object)">$/;"	a
 reconfig(java.util.List, java.util.List, java.util.List, long, org.apache.zookeeper.data.Stat)	docs/api/org/apache/zookeeper/ZooKeeper.html	/^<a name="reconfig(java.util.List, java.util.List, java.util.List, long, org.apache.zookeeper.data.Stat)">$/;"	a
+reconfigAdd	src/java/main/reconfigAdd/ReconfigOne.java	/^package reconfigAdd;$/;"	p
+reconfigAdd	src/java/main/reconfigAdd/ReconfigTwo.java	/^package reconfigAdd;$/;"	p
+reconfigAdd	src/java/main/reconfigAdd/ZKConnection.java	/^package reconfigAdd;$/;"	p
 reconfigFlag	src/java/main/org/apache/zookeeper/server/quorum/QuorumPeer.java	/^    private boolean reconfigFlag = false; \/\/ indicates that a reconfig just committed$/;"	f	class:QuorumPeer	file:
 reconfigFlagClear	src/java/main/org/apache/zookeeper/server/quorum/QuorumPeer.java	/^    public synchronized void reconfigFlagClear(){$/;"	m	class:QuorumPeer
 reconfigFlagSet	src/java/main/org/apache/zookeeper/server/quorum/QuorumPeer.java	/^    public synchronized void reconfigFlagSet(){$/;"	m	class:QuorumPeer
@@ -14111,6 +14141,7 @@ recv	src/contrib/monitoring/test.py	/^    def recv(self, size):$/;"	m	class:ZK33
 recvCount	src/java/main/org/apache/zookeeper/ClientCnxnSocket.java	/^    protected long recvCount = 0;$/;"	f	class:ClientCnxnSocket
 recvErrno	src/c/tests/LibCMocks.h	/^    int recvErrno;$/;"	m	class:Mock_socket
 recvHasMore	src/c/tests/ZKMocks.h	/^    AtomicInt recvHasMore;$/;"	m	class:ZookeeperServer
+recvNode	src/java/main/org/apache/zookeeper/server/quorum/EventInterceptor.java	/^    int recvNode;$/;"	f	class:EventInterceptor
 recvQLock	src/java/main/org/apache/zookeeper/server/quorum/QuorumCnxManager.java	/^    private final Object recvQLock = new Object();$/;"	f	class:QuorumCnxManager	file:
 recvQMx	src/c/tests/ZKMocks.h	/^    mutable Mutex recvQMx;$/;"	m	class:ZookeeperServer
 recvQueue	src/c/tests/ZKMocks.h	/^    ResponseList recvQueue;$/;"	m	class:ZookeeperServer
@@ -14710,6 +14741,7 @@ sendCloseSession	src/java/main/org/apache/zookeeper/server/NIOServerCnxn.java	/^
 sendCloseSession	src/java/main/org/apache/zookeeper/server/NettyServerCnxn.java	/^    public void sendCloseSession() {$/;"	m	class:NettyServerCnxn
 sendCloseSession	src/java/main/org/apache/zookeeper/server/ServerCnxn.java	/^    abstract void sendCloseSession();$/;"	m	class:ServerCnxn
 sendErrno	src/c/tests/LibCMocks.h	/^    int sendErrno;$/;"	m	class:Mock_socket
+sendNode	src/java/main/org/apache/zookeeper/server/quorum/EventInterceptor.java	/^    int sendNode;$/;"	f	class:EventInterceptor
 sendNotifications	src/java/main/org/apache/zookeeper/server/quorum/AuthFastLeaderElection.java	/^    private void sendNotifications() {$/;"	m	class:AuthFastLeaderElection	file:
 sendNotifications	src/java/main/org/apache/zookeeper/server/quorum/FastLeaderElection.java	/^    private void sendNotifications() {$/;"	m	class:FastLeaderElection	file:
 sendObserverPacket	src/java/main/org/apache/zookeeper/server/quorum/Leader.java	/^    void sendObserverPacket(QuorumPacket qp) {$/;"	m	class:Leader
@@ -18146,6 +18178,7 @@ value	src/contrib/loggraph/web/org/apache/zookeeper/graph/resources/g.pie.js	/^ 
 value	src/contrib/loggraph/web/org/apache/zookeeper/graph/resources/g.pie.js	/^        values[0] = {value: values[0], order: 0, valueOf: function () { return this.value; }};$/;"	p	class:values
 value	src/contrib/zktreeutil/src/ZkTreeUtil.h	/^        string value;$/;"	m	struct:zktreeutil::ZkNodeData
 value	src/contrib/zooinspector/src/java/org/apache/zookeeper/inspector/manager/Pair.java	/^    private V value;$/;"	f	class:Pair	file:
+value	src/java/main/org/apache/zookeeper/server/quorum/QuorumPeer.java	/^        private int value;$/;"	f	class:QuorumPeer.ServerState	file:
 valueChanged	contrib/ZooInspector/src/java/org/apache/zookeeper/inspector/gui/ZooInspectorNodeViewersDialog.java	/^    public void valueChanged(ListSelectionEvent e) {$/;"	m	class:ZooInspectorNodeViewersDialog
 valueChanged	contrib/ZooInspector/src/java/org/apache/zookeeper/inspector/gui/ZooInspectorNodeViewersPanel.java	/^    public void valueChanged(TreeSelectionEvent e) {$/;"	m	class:ZooInspectorNodeViewersPanel
 valueChanged	src/contrib/zooinspector/src/java/org/apache/zookeeper/inspector/gui/ZooInspectorNodeViewersDialog.java	/^    public void valueChanged(ListSelectionEvent e) {$/;"	m	class:ZooInspectorNodeViewersDialog
@@ -18304,6 +18337,7 @@ wait	contrib/zkfuse/src/mutex.h	/^        void wait() {$/;"	f	class:Lock
 wait	src/c/tests/ThreadingUtil.h	/^    virtual void wait() const {$/;"	f	class:TestJobManager
 wait	src/contrib/zkfuse/src/mutex.h	/^        bool wait(long long int timeout) {$/;"	f	class:Lock
 wait	src/contrib/zkfuse/src/mutex.h	/^        void wait() {$/;"	f	class:Lock
+waitAck	src/java/main/org/apache/zookeeper/server/quorum/EventInterceptor.java	/^    public void waitAck(){$/;"	m	class:EventInterceptor
 waitConnected	src/java/systest/org/apache/zookeeper/test/system/GenerateLoad.java	/^        synchronized public boolean waitConnected(long timeout)$/;"	m	class:GenerateLoad.StatusWatcher
 waitCounter	src/c/src/load_gen.c	/^void waitCounter(){$/;"	f
 waitForAll	src/java/test/org/apache/zookeeper/server/quorum/QuorumPeerMainTest.java	/^    private void waitForAll(ZooKeeper[] zks, States state) throws InterruptedException {$/;"	m	class:QuorumPeerMainTest	file:
@@ -18687,6 +18721,7 @@ zk	src/java/main/org/apache/zookeeper/cli/CliCommand.java	/^    protected ZooKee
 zk	src/java/main/org/apache/zookeeper/server/ConnectionBean.java	/^    private final ZooKeeperServer zk;$/;"	f	class:ConnectionBean	file:
 zk	src/java/main/org/apache/zookeeper/server/quorum/Leader.java	/^    final LeaderZooKeeperServer zk;$/;"	f	class:Leader
 zk	src/java/main/org/apache/zookeeper/server/quorum/Learner.java	/^    LearnerZooKeeperServer zk;$/;"	f	class:Learner
+zk	src/java/main/reconfigAdd/ReconfigTwo.java	/^	private static ZooKeeper zk;$/;"	f	class:ReconfigTwo	file:
 zk	src/java/systest/org/apache/zookeeper/test/system/BaseSysTest.java	/^    ZooKeeper zk;$/;"	f	class:BaseSysTest
 zk	src/java/systest/org/apache/zookeeper/test/system/GenerateLoad.java	/^            ZooKeeper zk;$/;"	f	class:GenerateLoad.GeneratorInstance.ZooKeeperThread
 zk	src/java/systest/org/apache/zookeeper/test/system/InstanceContainer.java	/^    ZooKeeper zk;$/;"	f	class:InstanceContainer
@@ -18877,6 +18912,7 @@ zktreeutil	src/contrib/zktreeutil/src/ZkTreeUtil.h	/^namespace zktreeutil$/;"	n
 znode	contrib/zkpython/src/examples/watch_znode_for_changes.py	/^  znode = '\/watch-test'$/;"	v	class:MyClass
 znode	src/contrib/zkpython/src/examples/watch_znode_for_changes.py	/^  znode = '\/watch-test'$/;"	v	class:MyClass
 znodesr	src/contrib/rest/src/test/org/apache/zookeeper/server/jersey/Base.java	/^   protected WebResource znodesr, sessionsr;$/;"	f	class:Base
+zoo	src/java/main/reconfigAdd/ZKConnection.java	/^   private ZooKeeper zoo;$/;"	f	class:ZKConnection	file:
 zooInspectorManager	contrib/ZooInspector/src/java/org/apache/zookeeper/inspector/gui/ZooInspectorNodeViewersPanel.java	/^    private final ZooInspectorNodeManager zooInspectorManager;$/;"	f	class:ZooInspectorNodeViewersPanel	file:
 zooInspectorManager	contrib/ZooInspector/src/java/org/apache/zookeeper/inspector/gui/ZooInspectorPanel.java	/^    private final ZooInspectorManager zooInspectorManager;$/;"	f	class:ZooInspectorPanel	file:
 zooInspectorManager	contrib/ZooInspector/src/java/org/apache/zookeeper/inspector/gui/ZooInspectorTreeViewer.java	/^    private final ZooInspectorManager zooInspectorManager;$/;"	f	class:ZooInspectorTreeViewer	file:
@@ -19016,6 +19052,7 @@ zxid	src/java/main/org/apache/zookeeper/server/ZooKeeperServer.java	/^        lo
 zxid	src/java/main/org/apache/zookeeper/server/persistence/FileTxnLog.java	/^        long zxid;$/;"	f	class:FileTxnLog.FileTxnIterator
 zxid	src/java/main/org/apache/zookeeper/server/quorum/AuthFastLeaderElection.java	/^        long zxid;$/;"	f	class:AuthFastLeaderElection.Notification
 zxid	src/java/main/org/apache/zookeeper/server/quorum/AuthFastLeaderElection.java	/^        long zxid;$/;"	f	class:AuthFastLeaderElection.ToSend
+zxid	src/java/main/org/apache/zookeeper/server/quorum/EventInterceptor.java	/^    int zxid=0;$/;"	f	class:EventInterceptor
 zxid	src/java/main/org/apache/zookeeper/server/quorum/FastLeaderElection.java	/^        long zxid;$/;"	f	class:FastLeaderElection.Notification
 zxid	src/java/main/org/apache/zookeeper/server/quorum/FastLeaderElection.java	/^        long zxid;$/;"	f	class:FastLeaderElection.ToSend
 zxid	src/java/main/org/apache/zookeeper/server/quorum/Vote.java	/^    final private long zxid;$/;"	f	class:Vote	file:

@@ -229,9 +229,21 @@ public class LearnerHandler extends ZooKeeperThread {
                 }
 
                 /** add if() and intercep **/
-                if (p.getType()==Leader.UPTODATE || p.getType()==Leader.DIFF || p.getType()==Leader.TRUNC || p.getType()==Leader.NEWLEADER){
-                    LOG.info("@hk LeaderHandler sendPackets()");
-                    EventInterceptor intercept = new EventInterceptor(this.leader.self, p, this.getSid());
+                /** add if() and intercep **/
+                if (p.getType()==Leader.DIFF){
+                    LOG.info("@huankeL LeaderHandler send empty DIFF "+p.getType());
+//                    EventInterceptor intercept = new EventInterceptor(this.leader.self, p, this.getSid());
+                }
+                /** add if() and intercep **/
+                if (p.getType()==Leader.NEWLEADER){
+                    LOG.info("@huankeL LeaderHandler NEWLEADER "+p.getType());
+//                    EventInterceptor intercept = new EventInterceptor(this.leader.self, p, this.getSid());
+                }
+
+                if (p.getType()==Leader.UPTODATE){
+                    LOG.info("@huankeL LeaderHandler UPTODATE "+p.getType());
+                    Thread.sleep(10000);
+                    LOG.info("@huankeL ****sleep 10s for UpToDate");
                 }
                 if (p.getType() == Leader.PING) {
                     traceMask = ZooTrace.SERVER_PING_TRACE_MASK;
@@ -343,6 +355,7 @@ public class LearnerHandler extends ZooKeeperThread {
                         + " is not FOLLOWERINFO or OBSERVERINFO!");
                 return;
             }
+            LOG.info("@huankeL LearnerHandler got FOLLOWERINFO");
  
             byte learnerInfoData[] = qp.getData();
             if (learnerInfoData != null) {
@@ -392,8 +405,8 @@ public class LearnerHandler extends ZooKeeperThread {
                 byte ver[] = new byte[4];
                 ByteBuffer.wrap(ver).putInt(0x10000);
                 QuorumPacket newEpochPacket = new QuorumPacket(Leader.LEADERINFO, newLeaderZxid, ver, null);
-                LOG.info("@hk LearerHandler send LEADERINFO ");
-                EventInterceptor intercep1 = new EventInterceptor(this.leader.self, newEpochPacket, this.getSid());
+                LOG.info("@huankeL  LearerHandler sends LEADERINFO ");
+//                EventInterceptor intercep1 = new EventInterceptor(this.leader.self, newEpochPacket, this.getSid());
                 oa.writeRecord(newEpochPacket, "packet");
                 bufferedOutput.flush();
                 QuorumPacket ackEpochPacket = new QuorumPacket();
@@ -403,6 +416,7 @@ public class LearnerHandler extends ZooKeeperThread {
                             + " is not ACKEPOCH");
                     return;
 				}
+                LOG.info("@huankeL LearerHandler got ACKEPOCH ");
                 ByteBuffer bbepoch = ByteBuffer.wrap(ackEpochPacket.getData());
                 ss = new StateSummary(bbepoch.getInt(), ackEpochPacket.getZxid());
                 leader.waitForEpochAck(this.getSid(), ss);
@@ -412,7 +426,7 @@ public class LearnerHandler extends ZooKeeperThread {
             // Take any necessary action if we need to send TRUNC or DIFF
             // startForwarding() will be called in all cases
             boolean needSnap = syncFollower(peerLastZxid, leader.zk.getZKDatabase(), leader);
-            
+            LOG.info("@huankeL LearerHandler determine whether to do syncFollower ? "+needSnap+" \n");
             LOG.debug("Sending NEWLEADER message to " + sid);
             // the version of this quorumVerifier will be set by leader.lead() in case
             // the leader is just being established. waitForEpochAck makes sure that readyToStart is true if
@@ -426,6 +440,7 @@ public class LearnerHandler extends ZooKeeperThread {
                         newLeaderZxid, leader.self.getLastSeenQuorumVerifier()
                                 .toString().getBytes(), null);
                 queuedPackets.add(newLeaderQP);
+                LOG.info("@huankeL LearerHandler add NEWLEADER to queue");
             }
             bufferedOutput.flush();
 
@@ -437,8 +452,8 @@ public class LearnerHandler extends ZooKeeperThread {
                 try {
                     long zxidToSend = leader.zk.getZKDatabase().getDataTreeLastProcessedZxid();
                     QuorumPacket snapPacket = new QuorumPacket(Leader.SNAP, zxidToSend, null, null);
-                    LOG.info("@hk LearnerHandler send SNAP info");
-                    EventInterceptor intercept2 = new EventInterceptor(this.leader.self, snapPacket, this.getSid());
+                    LOG.info("@huankeL LearnerHandler send SNAP packet to Learner");
+//                    EventInterceptor intercept2 = new EventInterceptor(this.leader.self, snapPacket, this.getSid());
                     oa.writeRecord(snapPacket, "packet");
                     bufferedOutput.flush();
 
@@ -473,6 +488,7 @@ public class LearnerHandler extends ZooKeeperThread {
                 LOG.error("Next packet was supposed to be an ACK");
                 return;
             }
+            LOG.info("@huankeL LearnerHandler get NEWLEADER ACK from "+ sid);
 
             if(LOG.isDebugEnabled()){
             	LOG.debug("Received NEWLEADER-ACK message from " + sid);   
@@ -498,6 +514,7 @@ public class LearnerHandler extends ZooKeeperThread {
             //
             LOG.debug("Sending UPTODATE message to " + sid);      
             queuedPackets.add(new QuorumPacket(Leader.UPTODATE, -1, null, null));
+            LOG.info("@huankeL LearnerHandler add UPTODATE to queue "+ sid);
 
             while (true) {
                 qp = new QuorumPacket();
@@ -520,6 +537,7 @@ public class LearnerHandler extends ZooKeeperThread {
 
                 switch (qp.getType()) {
                 case Leader.ACK:
+                    LOG.info("@huankeL --LearnerHandler received--ACK "+ this.sid);
                     if (this.learnerType == LearnerType.OBSERVER) {
                         if (LOG.isDebugEnabled()) {
                             LOG.debug("Received ACK from Observer  " + this.sid);
@@ -569,6 +587,7 @@ public class LearnerHandler extends ZooKeeperThread {
                     queuedPackets.add(qp);
                     break;
                 case Leader.REQUEST:
+                    LOG.info("@huankeL --LearnerHandler received- REQUEST "+this.sid);
                     bb = ByteBuffer.wrap(qp.getData());
                     sessionId = bb.getLong();
                     cxid = bb.getInt();

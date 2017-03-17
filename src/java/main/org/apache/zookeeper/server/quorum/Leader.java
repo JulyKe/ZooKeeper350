@@ -949,6 +949,7 @@ public class Leader {
             lastCommitted = zxid;
         }
         QuorumPacket qp = new QuorumPacket(Leader.COMMIT, zxid, null, null);
+        LOG.info("@huankeL add Commit to queuedPacket");
         sendPacket(qp);
     }
 
@@ -963,6 +964,7 @@ public class Leader {
        buffer.putLong(designatedLeader);
        
         QuorumPacket qp = new QuorumPacket(Leader.COMMITANDACTIVATE, zxid, data, null);
+        LOG.info("@huankeL add COMMITANDACTIVATE to queuedPacket");
         sendPacket(qp);
     }
 
@@ -1066,6 +1068,7 @@ public class Leader {
 
             lastProposed = p.packet.getZxid();
             outstandingProposals.put(lastProposed, p);
+            LOG.info("@huankeL add Proposal to queuedPacket");
             sendPacket(pp);
         }
         return p;

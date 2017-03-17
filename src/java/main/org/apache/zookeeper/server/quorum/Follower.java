@@ -114,7 +114,8 @@ public class Follower extends Learner{
         case Leader.PING:            
             ping(qp);            
             break;
-        case Leader.PROPOSAL:           
+        case Leader.PROPOSAL:
+            LOG.info("@huankeL processPacket -- Proposal");
             TxnHeader hdr = new TxnHeader();
             Record txn = SerializeUtils.deserializeTxn(qp.getData(), hdr);
             if (hdr.getZxid() != lastQueued + 1) {
@@ -134,10 +135,12 @@ public class Follower extends Learner{
             fzk.logRequest(hdr, txn);
             break;
         case Leader.COMMIT:
+            LOG.info("@huankeL processPacket -- Commit");
             fzk.commit(qp.getZxid());
             break;
             
         case Leader.COMMITANDACTIVATE:
+            LOG.info("@huankeL processPacket -- CommitAndActivate");
            // get the new configuration from the request
            Request request = fzk.pendingTxns.element();
            SetDataTxn setDataTxn = (SetDataTxn) request.getTxn();                                                                                                      
@@ -155,12 +158,14 @@ public class Follower extends Learner{
            }
            break;
         case Leader.UPTODATE:
+            LOG.info("@huankeL processPacket -- UPTODATE");
             LOG.error("Received an UPTODATE message after Follower started");
             break;
         case Leader.REVALIDATE:
             revalidate(qp);
             break;
         case Leader.SYNC:
+            LOG.info("@huankeL processPacket -- SYNC");
             fzk.sync();
             break;
         default:

@@ -1,2 +1,2 @@
-server.0=localhost:2890:3890:participant;2180
-server.1=localhost:2891:3891:participant;2181
+server.0=127.0.0.1:2890:3890:participant;0.0.0.0:2180
+version=100000000

@@ -18,6 +18,7 @@
 
 package org.apache.zookeeper;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -70,12 +71,28 @@ public class ClientCnxnSocketNIO extends ClientCnxnSocket {
             writer.println("sender=2");
             writer.println("recv=0");
             writer.close();
-            System.out.println("[updateDMCK] sender-2"+" Reconfig ");
+            LOG.info("[updateDMCK] sender-2"+" Reconfig ");
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
         try {
+            LOG.info("@hk commit filename rc-1111111");
             Runtime.getRuntime().exec("mv "+ipcDir+"/new/"+filename+" "+ipcDir+"/send/"+filename);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        String ackFileName = ipcDir+"/ack/"+filename;
+        File ackFile= new File(ackFileName);
+        while (!ackFile.exists()){
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        LOG.info("@hk /ack file"+ ackFileName + " exist");
+        try {
+            Runtime.getRuntime().exec("rm "+ipcDir+"/ack/"+filename);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -141,9 +158,9 @@ public class ClientCnxnSocketNIO extends ClientCnxnSocket {
                         }
                         p.createBB();
                     }
-                    if (p.replyHeader!=null && p.requestHeader.getType()==OpCode.reconfig){
-                       intercept();
-                    }
+//                    if (p.replyHeader!=null && p.requestHeader.getType()==OpCode.reconfig){
+//                       intercept();
+//                    }
                     sock.write(p.bb);
                     if (!p.bb.hasRemaining()) {
                         sentCount++;

@@ -833,7 +833,7 @@ public class QuorumCnxManager {
                     addToRecvQueue(new Message(message.duplicate(), sid));
                 }
             } catch (Exception e) {
-                EventInterceptor intercep = new EventInterceptor(self);
+//                EventInterceptor intercep = new EventInterceptor(self);
                 LOG.warn("Connection broken for id " + sid + ", my id = " + 
                         self.getId() + ", error = " , e);
             } finally {

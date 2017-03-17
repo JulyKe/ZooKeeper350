@@ -21,10 +21,7 @@ package org.apache.zookeeper.server.quorum;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.*;
 import java.util.HashMap;
 
 
@@ -37,7 +34,29 @@ public class EventInterceptor{
     int eventId;
     int leaderId;
     int zxid=0;
+    int requestType;
     String filename;
+
+    EventInterceptor( int nodeId, int requestType, int zxid, int nodeState){
+        this.sendNode=nodeId;
+        this.requestType=requestType;
+        this.zxid=zxid;
+        this.nodeState=nodeState;
+        this.eventId=getEventId();
+        this.filename="sync-"+Long.toString(eventId);
+        try {
+            PrintWriter writer = new PrintWriter(ipcDir+"/new/"+filename);
+            writer.println("sender="+this.sendNode);
+            writer.println("requestType="+this.requestType);
+            writer.println("zxid="+this.zxid);
+            writer.println("state="+this.nodeState);
+            writer.close();
+            LOG.info("[updateDMCK] sender-"+nodeId+" requestType-"+requestType+" zxid-"+zxid+" nodeState-"+nodeState);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        commitEvent();
+    }
 
     EventInterceptor(QuorumPeer learner, QuorumPacket packet){  //Learner.java
         this.sendNode=(int)learner.getId();
@@ -126,9 +145,9 @@ public class EventInterceptor{
             writer.println("recv="+this.recvNode);
             writer.println("state="+this.nodeState);
             writer.println("strSendRole="+state);
-            writer.println("leader="+this.leaderId);
+            writer.println("proposedLeader="+this.leaderId);
             writer.close();
-            LOG.info("[updateDMCK] sender-"+sender+" sendRole-"+state+" leader-"+leader);
+            LOG.info("[updateDMCK] sender-"+sender+" sendRole-"+state+" proposedLeader-"+leader);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
@@ -219,13 +238,15 @@ public class EventInterceptor{
     }
 
     public int getEventId(){
+        long time = System.currentTimeMillis();
+        int count = (int) (time%10000);
         final int prime=19;
         int hash=1;
         hash=prime*hash+this.sendNode;
         hash=prime*hash+this.recvNode;
         hash=prime*hash+this.leaderId;
         hash=prime*hash+this.nodeState;
-        return hash;
+        return hash+count;
     }
 
 

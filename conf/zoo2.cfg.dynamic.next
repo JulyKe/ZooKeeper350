@@ -1,0 +1,4 @@
+server.0=127.0.0.1:2890:3890:participant;0.0.0.0:2180
+server.1=127.0.0.1:2891:3891:participant;0.0.0.0:2181
+server.2=127.0.0.1:2892:3892:participant;0.0.0.0:2182
+version=100000004

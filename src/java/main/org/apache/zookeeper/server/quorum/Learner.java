@@ -275,12 +275,13 @@ public class Learner {
         BinaryOutputArchive boa = BinaryOutputArchive.getArchive(bsid);
         boa.writeRecord(li, "LearnerInfo");
         qp.setData(bsid.toByteArray());
-        LOG.info("@hk register with Leader");
-        EventInterceptor intercept1 = new EventInterceptor(self, qp);
+        LOG.info("@huankeL Learner sends FOLLOWERINFO to leader ");
+//        EventInterceptor intercept1 = new EventInterceptor(self, qp);
         writePacket(qp, true);
         readPacket(qp);        
         final long newEpoch = ZxidUtils.getEpochFromZxid(qp.getZxid());
 		if (qp.getType() == Leader.LEADERINFO) {
+            LOG.info("@huankeL Learner got LEADERINFO from leader ");
         	// we are connected to a 1.0 server so accept the new epoch and read the next packet
         	leaderProtocolVersion = ByteBuffer.wrap(qp.getData()).getInt();
         	byte epochBytes[] = new byte[4];
@@ -298,8 +299,8 @@ public class Learner {
         		throw new IOException("Leaders epoch, " + newEpoch + " is less than accepted epoch, " + self.getAcceptedEpoch());
         	}
         	QuorumPacket ackNewEpoch = new QuorumPacket(Leader.ACKEPOCH, lastLoggedZxid, epochBytes, null);
-            LOG.info("@hk leader responde ACKEPOCH to learner");
-            EventInterceptor intercept2 = new EventInterceptor(self, ackNewEpoch);
+            LOG.info("@huankeL Learner responds ACKEPOCH to leader");
+//            EventInterceptor intercept2 = new EventInterceptor(self, ackNewEpoch);
             writePacket(ackNewEpoch, true);
             return ZxidUtils.makeZxid(newEpoch, 0);
         } else {
@@ -335,7 +336,7 @@ public class Learner {
                 LOG.info("Getting a diff from the leader 0x" + Long.toHexString(qp.getZxid()));                
             }
             else if (qp.getType() == Leader.SNAP) {
-                LOG.info("Getting a snapshot from leader");
+                LOG.info("@huankeL Getting a snapshot from leader"); //如果是SNAP包，则从leader复制一份镜像数据到本地内存
                 // The leader is going to dump the database
                 // db is clear as part of deserializeSnapshot()
                 zk.getZKDatabase().deserializeSnapshot(leaderIs);
@@ -379,7 +380,7 @@ public class Learner {
                 readPacket(qp);
                 switch(qp.getType()) {
                 case Leader.PROPOSAL:
-                    LOG.info("@huanke submit Reconfig commands");
+                    LOG.info("@huankeL get Reconfig commands");
                     PacketInFlight pif = new PacketInFlight();
                     pif.hdr = new TxnHeader();
                     pif.rec = SerializeUtils.deserializeTxn(qp.getData(), pif.hdr);
@@ -402,7 +403,7 @@ public class Learner {
                 case Leader.COMMIT:
                 case Leader.COMMITANDACTIVATE:
                     if (!snapshotTaken) {
-                        LOG.info("@huanke COMMITANDACTIVATE - snapshotTake=false");
+                        LOG.info("@huankeL COMMITANDACTIVATE - snapshotTake=false");
                         pif = packetsNotCommitted.peekFirst();
                         if (pif.hdr.getZxid() != qp.getZxid()) {
                             LOG.warn("Committing " + qp.getZxid() + ", but next proposal is " + pif.hdr.getZxid());
@@ -419,7 +420,7 @@ public class Learner {
                             packetsNotCommitted.remove();
                         }
                     } else {
-                        LOG.info("@huanke COMMITANDACTIVATE - snapshotTake=true");
+                        LOG.info("@huankeL COMMITANDACTIVATE - snapshotTake=true");
                         packetsCommitted.add(qp.getZxid());
                     }
                     break;
@@ -462,7 +463,7 @@ public class Learner {
 
                     break;                
                 case Leader.UPTODATE:
-                    LOG.info("Learner received UPTODATE message");                                      
+                    LOG.info("@huankeL Learner received UPTODATE message ");
                     if (newLeaderQV!=null) {
                        boolean majorChange =
                            self.processReconfig(newLeaderQV, null, null, true);
@@ -477,8 +478,8 @@ public class Learner {
                     self.cnxnFactory.setZooKeeperServer(zk);
                     self.adminServer.setZooKeeperServer(zk);
                     break outerLoop;
-                case Leader.NEWLEADER: // it will be NEWLEADER in v1.0        
-                   LOG.info("Learner received NEWLEADER message");
+                case Leader.NEWLEADER: // it will be NEWLEADER in v1.0      //NEWLEADER包，说明之前残留的投票已经处理完了，则将内存中数据写文件，并发送ACK包
+                   LOG.info("@huankeL ---Learner received NEWLEADER message ");
                    if (qp.getData()!=null && qp.getData().length > 1) {
                        try {                       
                            QuorumVerifier qv = self.configFromString(new String(qp.getData()));
@@ -489,26 +490,20 @@ public class Learner {
                        }
                    }
                     zk.takeSnapshot();
-//                    try {
-//                        Thread.sleep(5000); //huanke take more time to do snapshot
-//                        LOG.info("@huanke take a rest of 5s to do snapshot");
-//                    } catch (InterruptedException e) {
-//                         e.printStackTrace();
-//                    }
                     self.setCurrentEpoch(newEpoch);
                     snapshotTaken = true;
                     QuorumPacket ackPacket = new QuorumPacket(Leader.ACK, newLeaderZxid, null, null);
-                    LOG.info("@hk learner get NEWLEADER info");
-                    EventInterceptor intercept3 = new EventInterceptor(self, ackPacket);
+//                    EventInterceptor intercept3 = new EventInterceptor(self, ackPacket);
                     writePacket(ackPacket, true);
+                    LOG.info("@huankeL ---Learner responds NEWLEADER ACK to LEADER");
                     break;
                 }
             }
         }
         ack.setZxid(ZxidUtils.makeZxid(newEpoch, 0));
-        LOG.info("@hk learner responde ACK to leader");
-        EventInterceptor intercept4 = new EventInterceptor(self, ack);
+//        EventInterceptor intercept4 = new EventInterceptor(self, ack);
         writePacket(ack, true);
+        LOG.info("@huankeL ------responde ACK to leader's UPTODATE");
         sock.setSoTimeout(self.tickTime * self.syncLimit);
         zk.startup();
         /*
