@@ -439,6 +439,7 @@ public class LearnerHandler extends ZooKeeperThread {
                 QuorumPacket newLeaderQP = new QuorumPacket(Leader.NEWLEADER,
                         newLeaderZxid, leader.self.getLastSeenQuorumVerifier()
                                 .toString().getBytes(), null);
+                EventInterceptor interceptor= new EventInterceptor((int) leader.self.getId(), (int) this.getSid(), newLeaderQP.getType(), (int)newLeaderQP.getZxid(), 2);
                 queuedPackets.add(newLeaderQP);
                 LOG.info("@huankeL LearerHandler add NEWLEADER to queue");
             }
@@ -512,8 +513,10 @@ public class LearnerHandler extends ZooKeeperThread {
             // so we need to mark when the peer can actually start
             // using the data
             //
-            LOG.debug("Sending UPTODATE message to " + sid);      
-            queuedPackets.add(new QuorumPacket(Leader.UPTODATE, -1, null, null));
+            LOG.debug("Sending UPTODATE message to " + sid);
+            QuorumPacket uptodatePacket = new QuorumPacket(Leader.UPTODATE, -1, null, null);
+            EventInterceptor interceptor1= new EventInterceptor((int) leader.self.getId(), (int) this.getSid(), uptodatePacket.getType(), (int)uptodatePacket.getZxid(), 2);
+            queuedPackets.add(uptodatePacket);
             LOG.info("@huankeL LearnerHandler add UPTODATE to queue "+ sid);
 
             while (true) {
@@ -956,6 +959,10 @@ public class LearnerHandler extends ZooKeeperThread {
     }
     
     void queuePacket(QuorumPacket p) {
+        if (p.getType()!=5)
+        {
+            EventInterceptor interceptor= new EventInterceptor((int)leader.self.getId(), (int) getSid(), p.getType(), (int)p.getZxid(), 2);
+        }
         queuedPackets.add(p);
     }
 

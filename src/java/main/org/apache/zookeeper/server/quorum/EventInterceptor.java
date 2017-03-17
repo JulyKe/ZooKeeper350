@@ -37,21 +37,22 @@ public class EventInterceptor{
     int requestType;
     String filename;
 
-    EventInterceptor( int nodeId, int requestType, int zxid, int nodeState){
-        this.sendNode=nodeId;
+    EventInterceptor( int sendNode, int recvNode, int requestType, int zxid, int nodeState){
+        this.sendNode=sendNode;
         this.requestType=requestType;
         this.zxid=zxid;
         this.nodeState=nodeState;
         this.eventId=getEventId();
-        this.filename="sync-"+Long.toString(eventId);
+        this.filename="zkque-"+Long.toString(eventId);
         try {
             PrintWriter writer = new PrintWriter(ipcDir+"/new/"+filename);
             writer.println("sender="+this.sendNode);
+            writer.println("recv="+this.recvNode);
             writer.println("requestType="+this.requestType);
             writer.println("zxid="+this.zxid);
             writer.println("state="+this.nodeState);
             writer.close();
-            LOG.info("[updateDMCK] sender-"+nodeId+" requestType-"+requestType+" zxid-"+zxid+" nodeState-"+nodeState);
+            LOG.info("[updateDMCK] sender-"+sendNode+" revv-"+recvNode+" requestType-"+requestType+" zxid-"+zxid+" nodeState-"+nodeState);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
@@ -243,8 +244,6 @@ public class EventInterceptor{
         final int prime=19;
         int hash=1;
         hash=prime*hash+this.sendNode;
-        hash=prime*hash+this.recvNode;
-        hash=prime*hash+this.leaderId;
         hash=prime*hash+this.nodeState;
         return hash+count;
     }

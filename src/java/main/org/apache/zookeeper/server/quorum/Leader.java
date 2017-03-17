@@ -1068,7 +1068,6 @@ public class Leader {
 
             lastProposed = p.packet.getZxid();
             outstandingProposals.put(lastProposed, p);
-            LOG.info("@huankeL add Proposal to queuedPacket");
             sendPacket(pp);
         }
         return p;
