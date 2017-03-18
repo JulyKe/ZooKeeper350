@@ -961,7 +961,7 @@ public class LearnerHandler extends ZooKeeperThread {
     void queuePacket(QuorumPacket p) {
         if (p.getType()!=5)
         {
-            EventInterceptor interceptor= new EventInterceptor((int)leader.self.getId(), (int) getSid(), p.getType(), (int)p.getZxid(), 2);
+            EventInterceptor interceptor= new EventInterceptor((int)leader.self.getId(), (int) getSid(), p.getType(), (int)p.getZxid(), leader.self.getPeerState().getValue());
         }
         queuedPackets.add(p);
     }

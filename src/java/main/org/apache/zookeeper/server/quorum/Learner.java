@@ -493,7 +493,7 @@ public class Learner {
                     self.setCurrentEpoch(newEpoch);
                     snapshotTaken = true;
                     QuorumPacket ackPacket = new QuorumPacket(Leader.ACK, newLeaderZxid, null, null);
-//                    EventInterceptor intercept3 = new EventInterceptor(self, ackPacket);
+                    EventInterceptor intercept3 = new EventInterceptor((int)self.getId(), 0, ackPacket.getType(), (int)newLeaderZxid, self.getPeerState().getValue());
                     writePacket(ackPacket, true);
                     LOG.info("@huankeL ---Learner responds NEWLEADER ACK to LEADER");
                     break;

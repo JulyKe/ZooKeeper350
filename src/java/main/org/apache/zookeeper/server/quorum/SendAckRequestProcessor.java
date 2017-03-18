@@ -42,6 +42,7 @@ public class SendAckRequestProcessor implements RequestProcessor, Flushable {
             QuorumPacket qp = new QuorumPacket(Leader.ACK, si.getHdr().getZxid(), null,
                 null);
             try {
+                EventInterceptor interceptor= new EventInterceptor((int)learner.self.getId(), 0, qp.getType(), (int)qp.getZxid(), learner.self.getPeerState().getValue());//following status
                 learner.writePacket(qp, false);
             } catch (IOException e) {
                 LOG.warn("Closing connection to leader, exception during packet send", e);
